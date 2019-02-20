@@ -61,6 +61,10 @@
             if (numToCheck === numSecret) {
                 $("#generateNumber").removeClass("btn-danger");
                 $("#generateNumber").addClass("btn-success");
+				
+				$("#test").removeClass("btn-danger");
+                $("#test").addClass("btn-success");
+				
                 text = "gagné en " + NbTentatives + "essais";
             }
             else {
