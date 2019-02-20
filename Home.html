@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
+
+    <style>
+        .digital-display {
+            text-align: right;
+        }
+        #etape2, #etape3{
+            margin-top: 15px;
+        }
+
+        .cache{
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        var resultat = "";
+
+        function MajText(input) {
+            resultat += "" + input;
+            $(".digital-display").val(resultat);
+        }
+
+        function calc(input) {
+            resultat = eval(resultat);
+            $(".digital-display").val(resultat);
+        }
+    </script>
+
+    <script type="text/javascript">
+        var numSecret = 0;
+        var NbTentatives = 0;
+
+        function GetRandomNumber() {
+            numSecret = Math.floor(Math.random() * 100);
+            $("#generateNumber").removeClass("btn-danger");
+            $("#generateNumber").addClass("btn-success");
+            showNextStep();
+            
+
+        }
+
+        function showNextStep() {
+            $("#etape2").removeClass("cache");
+            $("#etape3").removeClass("cache");
+        }
+
+        function CheckNumber() {
+            var numToCheck = parseInt($("#inputNum").val());
+            NbTentatives++;
+            var text = "";
+
+            if (numToCheck === numSecret) {
+                $("#generateNumber").removeClass("btn-danger");
+                $("#generateNumber").addClass("btn-success");
+                text = "gagné en " + NbTentatives + "essais";
+            }
+            else {
+                if (numToCheck > numSecret) {
+                    text = "trop grand : " + NbTentatives + " essais";
+                }
+                else {
+                    text = "trop petit : " + NbTentatives + " essais";
+                }
+            }
+
+            $("#test").html(text);
+        }
+
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Calculatrice
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control digital-display" type="text" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary" onclick="MajText('%');">%</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('/');">/</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('*');">*</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('-');">-</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary" onclick="MajText('7')">7</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('8')">8</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('9')">9</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('+')">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary" onclick="MajText('4')">4</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('5')">5</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('6')">6</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('.')">,</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary" onclick="MajText('1')">1</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('2')">2</button>
+                                        <button type="button" class="btn btn-primary" onclick="MajText('3')">3</button>
+                                        <button type="button" class="btn btn-info" onclick="calc()">=</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group btn-group-lg w-100" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary" onclick="MajText('0')">0</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Plus ou moins?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <span class="badge badge-dark">1</span>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-danger w-100" id="generateNumber" onclick="GetRandomNumber()">Tirer un nombre au hasard</button>
+                                </div>
+                            </div>
+                            <div class="row cache" id="etape2">
+                                <div class="col-md-1">
+                                    <span class="badge badge-dark">2</span>
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control" id="inputNum" placeholder="entrer un numéro">
+                                </div>
+                            </div>
+                            <div class="row cache" id="etape3">
+                                <div class="col-md-1">
+                                    <span class="badge badge-dark">3</span>
+                                </div>
+                                <div class="col">
+                                    <button id="test" type="button" class="btn btn-danger w-100" onclick="CheckNumber()">Tester</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
